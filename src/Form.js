@@ -1,4 +1,6 @@
 import React from "react";
+import TextField from "material-ui/TextField";
+import RaisedButton from "material-ui/RaisedButton";
 
 export default class Form extends React.Component {
   state = {
@@ -38,43 +40,53 @@ export default class Form extends React.Component {
   render() {
     return (
       <form>
-        <input
+        <TextField
           name="firstName"
-          placeholder="First name"
+          hintText="First name"
+          floatingLabelText="First name"
           value={this.state.firstName}
           onChange={e => this.change(e)}
+          floatingLabelFixed
         />
         <br />
-        <input
+        <TextField
           name="lastName"
-          placeholder="Last name"
+          hintText="Last Name"
+          floatingLabelText="Last Name"
           value={this.state.lastName}
           onChange={e => this.change(e)}
+          floatingLabelFixed
         />
         <br />
-        <input
+        <TextField
           name="username"
-          placeholder="Username"
+          hintText="Username"
+          floatingLabelText="Username"
           value={this.state.username}
           onChange={e => this.change(e)}
+          floatingLabelFixed
         />
         <br />
-        <input
+        <TextField
           name="email"
-          placeholder="Email"
+          hintText="Email"
+          floatingLabelText="Email"
           value={this.state.email}
           onChange={e => this.change(e)}
+          floatingLabelFixed
         />
         <br />
-        <input
+        <TextField
           name="password"
-          type="password"
-          placeholder="Password"
+          hintText="Password"
+          floatingLabelText="Password"
           value={this.state.password}
           onChange={e => this.change(e)}
+          type="password"
+          floatingLabelFixed
         />
         <br />
-        <button onClick={e => this.onSubmit(e)}>Submit</button>
+        <RaisedButton label="Submit" onClick={e => this.onSubmit(e)} primary />
       </form>
     );
   }
