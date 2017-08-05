@@ -17,7 +17,7 @@ export default class Form extends React.Component {
   };
 
   change = e => {
-    this.props.onChange({ [e.target.name]: e.target.value });
+    // this.props.onChange({ [e.target.name]: e.target.value });
     this.setState({
       [e.target.name]: e.target.value
     });
@@ -53,9 +53,9 @@ export default class Form extends React.Component {
 
   onSubmit = e => {
     e.preventDefault();
-    // this.props.onSubmit(this.state);
     const err = this.validate();
     if (!err) {
+      this.props.onSubmit(this.state);
       // clear form
       this.setState({
         firstName: "",
@@ -68,13 +68,6 @@ export default class Form extends React.Component {
         emailError: "",
         password: "",
         passwordError: ""
-      });
-      this.props.onChange({
-        firstName: "",
-        lastName: "",
-        username: "",
-        email: "",
-        password: ""
       });
     }
   };
