@@ -43,10 +43,29 @@ export default class Form extends React.Component {
       errors.emailError = "Requires valid email";
     }
 
+    /*
+
+    {
+      b: 1,
+    }
+
+    this.setState({b: 2});
+
+    {
+      b: 2,
+    }
+
+    */
+
+    // bad
+    /*
     this.setState({
       ...this.state,
-      ...errors
+      ...errors,
     });
+    */
+
+    this.setState(errors);
 
     return isError;
   };
