@@ -11,7 +11,31 @@ injectTapEventPlugin();
 
 class App extends Component {
   state = {
-    data: []
+    data: [],
+    editIdx: -1
+  };
+
+  handleRemove = i => {
+    this.setState(state => ({
+      data: state.data.filter((row, j) => j !== i)
+    }));
+  };
+
+  startEditing = i => {
+    this.setState({ editIdx: i });
+  };
+
+  stopEditing = () => {
+    this.setState({ editIdx: -1 });
+  };
+
+  handleChange = (e, name, i) => {
+    const { value } = e.target;
+    this.setState(state => ({
+      data: state.data.map(
+        (row, j) => (j === i ? { ...row, [name]: value } : row)
+      )
+    }));
   };
 
   render() {
@@ -25,6 +49,11 @@ class App extends Component {
               })}
           />
           <Table
+            handleRemove={this.handleRemove}
+            startEditing={this.startEditing}
+            editIdx={this.state.editIdx}
+            stopEditing={this.stopEditing}
+            handleChange={this.handleChange}
             data={this.state.data}
             header={[
               {
