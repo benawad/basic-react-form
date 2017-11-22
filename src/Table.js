@@ -10,6 +10,8 @@ import {
 import EditIcon from "material-ui/svg-icons/image/edit";
 import TrashIcon from "material-ui/svg-icons/action/delete";
 import CheckIcon from "material-ui/svg-icons/navigation/check";
+import DownArrow from "material-ui/svg-icons/navigation/arrow-drop-down";
+import UpArrow from "material-ui/svg-icons/navigation/arrow-drop-up";
 import TextField from "material-ui/TextField";
 
 const row = (
@@ -59,13 +61,33 @@ export default ({
   startEditing,
   editIdx,
   handleChange,
-  stopEditing
+  stopEditing,
+  handleSort,
+  sortDirection,
+  columnToSort
 }) => (
   <Table>
     <TableHeader>
       <TableRow>
         {header.map((x, i) => (
-          <TableHeaderColumn key={`thc-${i}`}>{x.name}</TableHeaderColumn>
+          <TableHeaderColumn key={`thc-${i}`}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center"
+              }}
+              onClick={() => handleSort(x.prop)}
+            >
+              <span>{x.name}</span>
+              {columnToSort === x.prop ? (
+                sortDirection === "asc" ? (
+                  <UpArrow />
+                ) : (
+                  <DownArrow />
+                )
+              ) : null}
+            </div>
+          </TableHeaderColumn>
         ))}
         <TableHeaderColumn />
         <TableHeaderColumn />
