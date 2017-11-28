@@ -9,10 +9,11 @@ import {
 } from "material-ui/Table";
 import EditIcon from "material-ui/svg-icons/image/edit";
 import TrashIcon from "material-ui/svg-icons/action/delete";
-import CheckIcon from "material-ui/svg-icons/navigation/check";
 import DownArrow from "material-ui/svg-icons/navigation/arrow-drop-down";
 import UpArrow from "material-ui/svg-icons/navigation/arrow-drop-up";
 import TextField from "material-ui/TextField";
+
+import InlineForm from "./InlineForm";
 
 const row = (
   x,
@@ -21,33 +22,27 @@ const row = (
   handleRemove,
   startEditing,
   editIdx,
-  handleChange,
+  handleSave,
   stopEditing
 ) => {
   const currentlyEditing = editIdx === i;
-  return (
+  return currentlyEditing ? (
+    <TableRow key={`inline-form-${i}`} selectable={false}>
+      <InlineForm
+        handleSave={handleSave}
+        header={header}
+        x={x}
+        i={i}
+        stopEditing={stopEditing}
+      />
+    </TableRow>
+  ) : (
     <TableRow key={`tr-${i}`} selectable={false}>
       {header.map((y, k) => (
-        <TableRowColumn key={`trc-${k}`}>
-          {currentlyEditing ? (
-            <TextField
-              name={y.prop}
-              onChange={e => handleChange(e, y.prop, i)}
-              value={x[y.prop]}
-            />
-          ) : (
-            x[y.prop]
-          )}
-        </TableRowColumn>
+        <TableRowColumn key={`trc-${k}`}>{x[y.prop]}</TableRowColumn>
       ))}
       <TableRowColumn>
-        {currentlyEditing ? (
-          <CheckIcon onClick={() => stopEditing()} />
-        ) : (
-          <EditIcon onClick={() => startEditing(i)} />
-        )}
-      </TableRowColumn>
-      <TableRowColumn>
+        <EditIcon onClick={() => startEditing(i)} />
         <TrashIcon onClick={() => handleRemove(i)} />
       </TableRowColumn>
     </TableRow>
@@ -60,7 +55,7 @@ export default ({
   handleRemove,
   startEditing,
   editIdx,
-  handleChange,
+  handleSave,
   stopEditing,
   handleSort,
   sortDirection,
@@ -90,7 +85,6 @@ export default ({
           </TableHeaderColumn>
         ))}
         <TableHeaderColumn />
-        <TableHeaderColumn />
       </TableRow>
     </TableHeader>
     <TableBody>
@@ -102,7 +96,7 @@ export default ({
           handleRemove,
           startEditing,
           editIdx,
-          handleChange,
+          handleSave,
           stopEditing
         )
       )}

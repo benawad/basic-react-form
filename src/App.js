@@ -108,13 +108,11 @@ class App extends Component {
     this.setState({ editIdx: -1 });
   };
 
-  handleChange = (e, name, i) => {
-    const { value } = e.target;
+  handleSave = (i, x) => {
     this.setState(state => ({
-      data: state.data.map(
-        (row, j) => (j === i ? { ...row, [name]: value } : row)
-      )
+      data: state.data.map((row, j) => (j === i ? x : row))
     }));
+    this.stopEditing();
   };
 
   handleSort = columnName => {
@@ -144,7 +142,7 @@ class App extends Component {
             startEditing={this.startEditing}
             editIdx={this.state.editIdx}
             stopEditing={this.stopEditing}
-            handleChange={this.handleChange}
+            handleSave={this.handleSave}
             columnToSort={this.state.columnToSort}
             sortDirection={this.state.sortDirection}
             data={orderBy(
